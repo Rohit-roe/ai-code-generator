@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="AI-powered course generator using Ollama. Enter any learning goal and get a personalized course with daily tasks, milestones, and curated resources." />
+    <title>AI Course Generator — Ollama Powered</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- Landing Page -->
+        <section id="landing" class="page active">
+            <div class="hero-bg"></div>
+            <nav class="navbar">
+                <div class="logo">
+                    <span class="logo-icon">🎓</span>
+                    <span class="logo-text">CourseForge<span class="logo-ai">AI</span></span>
+                </div>
+                <div class="ollama-status" id="ollamaStatus" title="Ollama Connection Status">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span class="status-text" id="statusText">Checking Ollama...</span>
+                </div>
+            </nav>
+
+            <div class="hero-content">
+                <div class="hero-badge">🦙 Powered by Ollama — 100% Local AI</div>
+                <h1 class="hero-title">
+                    Generate Your<br />
+                    <span class="gradient-text">Perfect Course</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Enter any learning goal and get a complete personalized course with<br />
+                    daily tasks, milestones, topic classes, and curated YouTube & web resources.
+                </p>
+
+                <form id="courseForm" class="course-form">
+                    <div class="form-group form-main">
+                        <label for="goal">What do you want to learn?</label>
+                        <input type="text" id="goal"
+                            placeholder="e.g. Master React.js, Learn Guitar, Data Science with Python..." required
+                            autocomplete="off" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="model">Ollama Model</label>
+                        <select id="model">
+                            <option value="">Loading models...</option>
+                        </select>
+                        <span class="form-hint" id="modelHint">Select a locally installed Ollama model</span>
+                    </div>
+
+                    <button type="submit" class="btn-generate" id="generateBtn">
+                        <span class="btn-text">Generate Course</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="hero-features">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Daily Tasks</h3>
+                    <p>Structured day-by-day learning timeline</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Weekly Goals</h3>
+                    <p>SMART milestones to track progress</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Topic Classes</h3>
+                    <p>Organized lessons with subtopics</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Curated Resources</h3>
+                    <p>YouTube videos & web articles</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <section id="loading" class="page">
+            <div class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <h2 class="loading-title">Crafting Your Course...</h2>
+                <p class="loading-subtitle" id="loadingStatus">Running local AI model...</p>
+                <div class="loading-steps">
+                    <div class="step active" id="step1">🤖 Generating course structure</div>
+                    <div class="step" id="step2">📹 Finding YouTube resources</div>
+                    <div class="step" id="step3">🌐 Searching web articles</div>
+                    <div class="step" id="step4">✅ Finalizing your plan</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Display -->
+        <section id="courseView" class="page">
+            <nav class="navbar course-navbar">
+                <button class="btn-back" id="backBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    New Course
+                </button>
+                <div class="logo">
+                    <span class="logo-icon">🎓</span>
+                    <span class="logo-text">CourseForge<span class="logo-ai">AI</span></span>
+                </div>
+            </nav>
+
+            <div class="course-header" id="courseHeader">
+                <!-- Filled by JS -->
+            </div>
+
+            <div class="course-tabs">
+                <button class="tab active" data-tab="timeline">📅 Timeline</button>
+            </div>
+
+            <div class="course-content">
+                <div class="tab-panel active" id="timelinePanel">
+                    <div id="timelineContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Toast -->
+        <div class="toast" id="toast">
+            <span class="toast-icon">⚠️</span>
+            <span class="toast-message" id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="main.js?v=4"></script>
+</body>
+
+</html>
